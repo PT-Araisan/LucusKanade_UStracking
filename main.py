@@ -57,7 +57,7 @@ def process_video(video_path):
         xx = x_coords[30] if len(x_coords) > 30 else x_coords[-1]
         yy = y_coords[30] if len(y_coords) > 30 else y_coords[-1]
         dist = np.sqrt((xx - criteria[0]) ** 2 + (yy - criteria[1]) ** 2)
-        print('移動距離：{0}px'.format(dist))
+        print('移動距離：{:.2f}px'.format(dist))
 
 video_path = 'assets/sample.mp4'  
 process_video(video_path)
