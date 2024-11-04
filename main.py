@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-def process_video(video_path):
+def process_video(video_path, frame_count):
     cap = cv2.VideoCapture(video_path)
     ret, old_frame = cap.read()
 
@@ -54,11 +54,15 @@ def process_video(video_path):
     
     if x_coords and y_coords:
         criteria = (x_coords[0], y_coords[0])
-        xx = x_coords[30] if len(x_coords) > 30 else x_coords[-1]
-        yy = y_coords[30] if len(y_coords) > 30 else y_coords[-1]
+        frame_index = min(frame_count, len(x_coords) - 1)  # 入力したフレーム数か、最後のインデックスの最小値
+        xx = x_coords[frame_index]
+        yy = y_coords[frame_index]
         dist = np.sqrt((xx - criteria[0]) ** 2 + (yy - criteria[1]) ** 2)
         print('移動距離：{:.2f}px'.format(dist))
 
-video_path = 'assets/sample.mp4'  
-process_video(video_path)
+# 動画のパスと評価するフレーム数を指定
+video_path = 'assets/sample.mp4'
+frame_count = 30  
+process_video(video_path, frame_count)
+
 
